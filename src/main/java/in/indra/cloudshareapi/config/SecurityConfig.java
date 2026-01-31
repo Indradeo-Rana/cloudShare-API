@@ -26,9 +26,6 @@ public class SecurityConfig {
 
     private final ClerkJwtAuthFilter clerkJwtAuthFilter;
 
-    @Value("${frontend.url}")  // this will inject the value of frontend.url from application.properties
-    private String frontendUrl;
-
     @Bean  // Rules for every incoming HTTP request
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.cors(Customizer.withDefaults())  // both frontend and backend are on different ports so cors says “I trust this frontend, allow it”
@@ -52,7 +49,7 @@ public class SecurityConfig {
 
     private UrlBasedCorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of(frontendUrl)); //  before it was "http://localhost:5173"
+        config.setAllowedOrigins(List.of("https://rainbow-liger-0af62d.netlify.app/")); //  before it was "http://localhost:5173"
         config.setAllowedMethods(List.of("GET", "POST", "PUT","PATCH", "DELETE","OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization" , "Content-Type"));
         config.setAllowCredentials(true);

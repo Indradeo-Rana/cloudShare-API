@@ -15,6 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class UserCredits {
 
     @Id
+    private String id;
     private String clerkId;
     private Integer credits;
     private String plan;
