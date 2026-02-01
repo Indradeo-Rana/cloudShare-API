@@ -31,9 +31,11 @@ public class SecurityConfig {
         httpSecurity.cors(Customizer.withDefaults())  // both frontend and backend are on different ports so cors says “I trust this frontend, allow it”
                 .csrf(AbstractHttpConfigurer::disable)  // it is used in session-based authentication
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/webhooks/**",
-                                "/api/v1.0/webhooks/**",
+                                "/",
+                                "/webhooks/**",
                                 "/files/download/**",
-                                "/api/v1.0/check",
+                                "/check",
+                                "/test/**",
                                 "/files/public/**")
                         .permitAll().anyRequest().authenticated())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -49,7 +51,7 @@ public class SecurityConfig {
 
     private UrlBasedCorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("https://rainbow-liger-0af62d.netlify.app/")); //  before it was "http://localhost:5173"
+        config.setAllowedOrigins(List.of("https://rainbow-liger-0af62d.netlify.app","https://cloudshare-api-production.up.railway.app","http://localhost:8080")); //  before it was "http://localhost:5173"
         config.setAllowedMethods(List.of("GET", "POST", "PUT","PATCH", "DELETE","OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization" , "Content-Type"));
         config.setAllowCredentials(true);
