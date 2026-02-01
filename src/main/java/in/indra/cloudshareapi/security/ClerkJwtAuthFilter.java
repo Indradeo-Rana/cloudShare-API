@@ -40,7 +40,8 @@ public class ClerkJwtAuthFilter extends OncePerRequestFilter {
         //  Allow webhooks without JWT or public (no login required) endpoints
         if (request.getRequestURI().contains("/webhooks")  ||
                 request.getRequestURI().contains("public/") ||
-                request.getRequestURI().contains("download/")) {
+                request.getRequestURI().contains("download/") ||
+                request.getRequestURI().contains("/test")) {
             filterChain.doFilter(request, response);
             return;
         }
